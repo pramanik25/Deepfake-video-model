@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Deepfake Video Upload</title>
+  <link rel="stylesheet" href="{% static 'detector_app/css/style.css' %}"> 
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+ <div id="particles-js" style="position: fixed; width: 100%; height: 100%; z-index: -1; top: 0; left: 0;"></div>
+  <header>
+    <div class="logo">AI Deepfake</div>
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="{% url 'detector_app:index' %}">Home</a></li> 
+        <a href="#deepfake-section" class="nav-button">About</a>
+        <a href="#Contact-Us" class="nav-button">ContactUs</a>
+      </ul>
+      <!-- Updated Login Button to link to a Django view for login -->
+      <button class="login-btn" onclick="window.location.href='{% url 'detector_app:login_view' %}'">Login</button>
+    </nav>
+  </header>
+
+  <main class="wrapper">
+    <div class="left-panel">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <img src="{% static 'detector_app/img/img1.jpg' %}" alt="AI Face"/>
+                </div>
+                <div class="flip-card-back">
+                 <img src="{% static 'detector_app/img/img2.png' %}" alt="Deepfake Concept"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-panel">
+      <h1 class="upload-title">Upload Your Video</h1>
+      {% csrf_token %}
+      <label for="videoUpload" class="upload-box" id="dropArea">
+        <p>Click to Upload or Drag & Drop</p>
+        <input type="file" id="videoUpload" name="videoFile" accept="video/*" style="display: none;">
+      </label>
+
+      <button class="upload-btn" onclick="uploadVideo()">Detect Deepfake</button>
+      <p class="success-msg" id="successMsg" style="display:none;">✅ Video uploaded successfully! Processing...</p>
+      <div id="resultArea" style="margin-top: 20px; color: white; font-size: 1.2em;">
+      </div>
+    </div>
+  </main>
+
+  <section id="deepfake-section" class="background firstSection">
+    <div class="box-main">
+        <img src="{% static 'detector_app/img/img6.jpg' %}" alt="about deepfake">
+        <div class="firstHalf">
+            <p class="text-big">What is Deepfake Detection</p>
+            <br>
+            <p class="text-small">Deepfake detection is the process of finding out whether a photo, video, or audio recording has been digitally changed to show something that did not really happen. Deepfakes are created using advanced technology like artificial intelligence, and they can look very real, making it hard for people to tell if they are fake. Detecting deepfakes is important because it helps prevent the spread of false information and protects people from being tricked or harmed.
+                To detect deepfakes, experts use special computer programs that look closely at small details, such as unnatural blinking, strange lighting, or mismatched voices. Sometimes, even tiny mistakes in the deepfake, which are hard for the human eye to notice, can be found by these smart tools. As deepfakes become more advanced, researchers are working hard to create even better ways to catch them and keep information safe and trustworthy.
+            </p>
+        </div>
+        <div class="secondHalf">  </div>
+    </div>
+
+    <div class="second-box">
+        <img src="{% static 'detector_app/img/img7.jpg' %}" alt="Importance of deepfake detection">
+        <div class="firstPara">
+            <p class="big-text">Importance of Deepfake Detection</p>
+            <br>
+            <p class="small-text">
+                Detecting deepfakes is very important because it helps protect people and society from being misled by false information. Deepfakes can be used to spread fake news, create fake videos of important people, or trick others into believing something that isn’t true. If we can detect deepfakes early, we can stop the damage they might cause and make sure that people only trust real and honest information.
+                It also helps protect individuals from being harmed personally or professionally. For example, someone’s image or voice could be faked to create false accusations or damage their reputation. By improving deepfake detection, we can defend people’s rights, maintain trust in media and communication, and make the internet a safer place for everyone.
+            </p>
+        </div>
+    </div>
+
+    <div class="third-box">
+        <img src="{% static 'detector_app/img/img8.jpg' %}" alt="impact of deepfakes">
+        <div class="impactPara">
+            <p class="b-text">Impact of DeepFakes on Society</p>
+            <p class="s-text"> 
+                Deepfakes can have a strong impact on society by spreading false information and creating confusion. Fake videos or audios of leaders, celebrities, or ordinary people can easily go viral, making people believe things that are not true. This can lead to misunderstandings, damage to someone's reputation, and even social unrest. In some cases, deepfakes have been used to create fake news during elections, which can affect how people vote and harm the fairness of democracy.
+                Deepfakes also make it harder for people to trust what they see and hear online. When it becomes difficult to tell what is real and what is fake, people may start doubting everything, including true information. This loss of trust can weaken relationships, create fear, and make it easier for bad actors to spread harmful ideas. Therefore, understanding and detecting deepfakes is very important to protect the truth and keep society safe and strong.
+            </p>
+        </div>
+    </div>
+  </section>
+  
+  <section id="Contact-Us" class="Contact-Us">
+    <h2>Our Team</h2>
+    <div class="team-cards">
+      <div class="team-member">
+        <img src="{% static 'detector_app/img/image_Muskan_Kumari.JPG' %}" alt="Member 1"> 
+        <h3>Muskan Kumari</h3>
+        <p>Email: ce.muskan.dmk@gmail.com</p>
+        <p>Phone: +91 9142496404</p>
+      </div>
+  
+      <div class="team-member">
+        <img src="{% static 'detector_app/img/image_priya.jpg' %}" alt="Member 2"> 
+        <h3>Priya Kumari</h3>
+        <p>Email: priya726kumari@gmail.com</p>
+        <p>Phone: +91 6205898365</p>
+      </div>
+
+      <div class="team-member">
+        <img src="{% static 'detector_app/img/image_raj.jpeg' %}" alt="Member 3"> 
+        <h3>Raj Kumar</h3>
+        <p>Email: Rajkumarsaw3002@gmail.com</p>
+        <p>Phone: +91 9771667031</p>
+      </div>
+
+      <div class="team-member">
+        <img src="{% static 'detector_app/img/image_shivam.jpeg' %}" alt="Member 4"> 
+        <h3>Shivam Kumar</h3>
+        <p>Email: shivamkumar9clg@gmail.com</p>
+        <p>Phone: +91 9113479631</p>
+      </div>
+
+      <div class="team-member">
+        <img src="{% static 'detector_app/img/image_vikash.jpeg' %}" alt="Member 5"> 
+        <h3>Vikash Pramanik</h3>
+        <p>Email: vikashlearnskill@gmail.com</p>
+        <p>Phone: +91 9798490863</p>
+      </div>
+    </div>
+  </section>
+   
+  <footer>
+    <p>© 2025 AI Deepfake. All rights reserved.</p>
+  </footer>
+
+  <!-- particles.js library -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <!-- Your custom script.js that includes particlesJS initialization -->
+  <script src="{% static 'detector_app/js/script.js' %}"></script> 
+  <!-- 
+    If particles-config.js ONLY contains the config object and script.js USES that object,
+    then script.js must be loaded AFTER particles-config.js.
+    However, your script.js already has the particlesJS({...}) call with the config inline.
+    So, you likely don't need to load particles-config.js separately here if its content is in script.js.
+    If particles-config.js IS `particles.min.js`, then the CDN link above is better.
+    I'll assume script.js handles the particles initialization.
+  -->
+  <!-- <script src="{% static 'detector_app/js/particles-config.js' %}"></script> --> 
+</body>
+</html>
